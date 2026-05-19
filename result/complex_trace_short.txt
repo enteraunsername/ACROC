@@ -1,0 +1,13 @@
+pre (8, 0.9313754955494216, 0.9687674718484492, [87, 113, 198, 204, 328, 343, 742, 1016])
+initPE sec 28.3
+iter 1 ok 1 n 7 sec 17.6
+iter 2 ok 1 n 6 sec 45.7
+iter 3 ok 0 n 6 sec 3.5
+iter 4 ok 0 n 6 sec 3.4
+iter 5 ok 0 n 6 sec 3.6
+iter 6 ok 0 n 6 sec 3.5
+iter 7 ok 0 n 6 sec 3.5
+iter 8 ok 0 n 6 sec 3.5
+iter 9 ok 0 n 6 sec 3.5
+iter 10 ok 0 n 6 sec 3.6
+after10 (6, 0.486918112779145, 0.7930589351012347, [87, 198, 204, 328, 343, 1871])

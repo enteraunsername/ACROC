@@ -3,6 +3,7 @@ import networkx as nx
 from rouletteWheelSelection import * 
 from matrixTool import *
 from Cluster import *
+from sklearn.neighbors import KDTree
 
 def getKE(data,A, res):
     KE = []
@@ -93,15 +94,19 @@ def findCenterAtom(DG,data,cluster_1,cluster_2,A,Ea_a,Ea_b):
 
 
 def findClostetPointPair(data,cluster_1,cluster_2):#这里将返回的element_i,element_j改为u,v,disMin=temp之前没有
-    disMin=float('inf')
-    for element_i in cluster_1.point:
-        for element_j in cluster_2.point:
-            temp=euclidean_distance(data[element_i],data[element_j])
-            if disMin>temp:
-                disMin=temp
-                u=element_i
-                v=element_j
-    return u,v
+    points_1 = np.array(cluster_1.point)
+    points_2 = np.array(cluster_2.point)
+
+    if len(points_1) <= len(points_2):
+        tree = KDTree(data[points_2])
+        distance, indices = tree.query(data[points_1], k=1)
+        local_index = int(np.argmin(distance[:, 0]))
+        return int(points_1[local_index]), int(points_2[indices[local_index, 0]])
+
+    tree = KDTree(data[points_1])
+    distance, indices = tree.query(data[points_2], k=1)
+    local_index = int(np.argmin(distance[:, 0]))
+    return int(points_1[indices[local_index, 0]]), int(points_2[local_index])
 
 def getArroundAtom(data,cluster,centerAtom,r):#判断条件<=r在括号之内
     Atom=[]

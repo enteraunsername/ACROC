@@ -1,0 +1,17 @@
+clusters [87, 198, 1016, 328, 343, 742, 204, 113]
+before 0 size 87
+after 0 sec 0.01 PE 115338083.22351058
+before 1 size 198
+after 1 sec 0.03 PE 19671401.62832121
+before 2 size 1016
+after 2 sec 13.68 PE 2794868.0789253004
+before 3 size 328
+after 3 sec 2.48 PE 13103272.019681774
+before 4 size 343
+after 4 sec 2.57 PE 14870687.895465158
+before 5 size 742
+after 5 sec 8.31 PE 3969335.9120397153
+before 6 size 204
+after 6 sec 0.03 PE 13983188.996416936
+before 7 size 113
+after 7 sec 0.01 PE 44825715.00704632

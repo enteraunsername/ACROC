@@ -60,8 +60,7 @@ class Cluster:
         return self.lysm
     
     def SecondSmallestEigenvalue(self):
-        self.second_eigval = getSecondSmallestEigenvalue(self.lysm)
-        self.second_eigvec = getSecondSmallestEigenvector(self.lysm)
+        self.second_eigval, self.second_eigvec = getSecondSmallestEigenpair(self.lysm)
         return self.second_eigval
     
     def calculatePE(self):

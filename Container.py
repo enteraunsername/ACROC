@@ -23,7 +23,8 @@ def container(data_scaled,cluster,graph,adjmatrix,A_nomutual,G_nomutual,DG,tol,c
     for i in range(max_iter):
         # print("第"+str(i)+"次迭代")
         cluster,sysrecord,isSucessSysthesis=synthesis(data_scaled,DG,G_nomutual,cluster,A_nomutual,sysrecord)
-        cluster,graph,adjmatrix=updateCluster(cluster,data_scaled,A_nomutual)
+        if isSucessSysthesis:
+            cluster,graph,adjmatrix=updateCluster(cluster,data_scaled,A_nomutual)
         sucessCount+=isSucessSysthesis
         if i%check_interval==0 and i>0:
             # print("成功次数:"+str(sucessCount))

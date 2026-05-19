@@ -1,4 +1,6 @@
 import numpy as np
+from scipy import sparse
+from scipy.sparse.linalg import eigsh
 
 def euclidean_distance(a, b):#计算a,b两点之间的欧式距离
     return np.linalg.norm(a-b)
@@ -18,7 +20,40 @@ def normalizedLaplacian(adj_matrix, epsilon=1e-8):
     L_norm += np.eye(n) * epsilon
     return L_norm
 
+def _second_smallest_eigenpair(matrix):
+    n = matrix.shape[0]
+    if n == 0:
+        return 0.0, np.array([])
+    if n == 1:
+        return float(matrix[0][0]), np.ones(1)
+
+    try:
+        if n > 256:
+            sparse_matrix = sparse.csr_matrix(matrix)
+            eigenvalues, eigenvectors = eigsh(
+                sparse_matrix,
+                k=2,
+                which="SM",
+                tol=1e-5,
+                maxiter=max(1000, n * 20),
+            )
+        else:
+            eigenvalues, eigenvectors = np.linalg.eigh(matrix)
+    except Exception:
+        eigenvalues, eigenvectors = np.linalg.eig(matrix)
+        eigenvalues = np.real(eigenvalues)
+        eigenvectors = np.real(eigenvectors)
+
+    sorted_indices = np.argsort(eigenvalues)
+    second_index = sorted_indices[1] if len(sorted_indices) > 1 else sorted_indices[0]
+    return float(np.real(eigenvalues[second_index])), np.real(eigenvectors[:, second_index])
+
+def getSecondSmallestEigenpair(matrix):
+    return _second_smallest_eigenpair(matrix)
+
 def getSecondSmallestEigenvalue(matrix):
+    if matrix.shape[0] > 256:
+        return _second_smallest_eigenpair(matrix)[0]
     try:
         eigenvalues = np.linalg.eigvalsh(matrix)
     except np.linalg.LinAlgError:
@@ -31,6 +66,8 @@ def getSecondSmallestEigenvalue(matrix):
         return sorted_eigenvalues[0]  
 
 def getSecondSmallestEigenvector(matrix):
+    if matrix.shape[0] > 256:
+        return _second_smallest_eigenpair(matrix)[1]
     try:
         eigenvalues, eigenvectors = np.linalg.eigh(matrix)
     except np.linalg.LinAlgError:

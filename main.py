@@ -27,13 +27,18 @@ warnings.filterwarnings("ignore", category=RuntimeWarning)
 #adjust_rand_score
 # dataname='Aggregation.txt' #0.99
 # dataname='Compound.txt' #0.989  RB4<=5,合并参数0.2
-dataname='diamond9.txt'#0.989
 # dataname='Flame.txt'#0.93
 # dataname='Jain.txt' #1.0
 # dataname='R15.txt'#0.98 RB<=5
 # dataname='Spiral.txt' #1.0
+# dataname='SmileFace.txt'#1.0
+# dataname='Elliptical_10_2.txt' #0.93    k=4，sys=0.2
+# dataname='Zelnik2.txt' #0.99 sys=0.2，k=9
+# dataname='Zelnik4.txt'#0.984 sys=0.2，k=9
+dataname='Complex9.txt'#sys=0.2  
+# dataname='diamond9.txt'
 
-sys=0.8
+sys=0.2
 df=pd.read_csv('./datasets/'+dataname,sep='\t',header=None)
 #print(df)
 data=df.iloc[:, :-1]
